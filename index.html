@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>טופס הצהרת בריאות</title>
+<title>שאלון בריאות והרגלים — נויה פסו</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style id="heebo-preload"></style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -19,31 +19,37 @@
     padding: 20px 16px 40px;
   }
 
-  .container {
-    max-width: 620px;
-    margin: 0 auto;
-  }
+  .container { max-width: 640px; margin: 0 auto; }
 
   /* Header */
   .form-header {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: white;
     border-radius: 16px 16px 0 0;
-    padding: 32px 24px 24px;
+    padding: 36px 24px 28px;
     text-align: center;
   }
 
   .form-header h1 {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     font-weight: 700;
-    margin-bottom: 6px;
-    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    letter-spacing: 0.3px;
   }
 
-  .form-header p {
-    font-size: 0.85rem;
-    opacity: 0.75;
+  .form-header .subtitle {
+    font-size: 0.92rem;
+    font-weight: 400;
+    opacity: 0.95;
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+
+  .form-header .privacy {
+    font-size: 0.78rem;
+    opacity: 0.8;
     font-weight: 300;
+    margin-top: 8px;
   }
 
   /* Form body */
@@ -51,7 +57,7 @@
     background: #ffffff;
     border-radius: 0 0 16px 16px;
     overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   }
 
   /* Section headers */
@@ -63,29 +69,26 @@
   }
 
   .section-header h2 {
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 700;
     color: #0f3460;
-    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
-  .section-header p {
-    font-size: 0.8rem;
-    color: #666;
-    line-height: 1.5;
-  }
+  .section-icon { font-size: 1.1rem; }
 
-  /* Questions */
-  .question-block {
-    padding: 18px 24px;
+  /* Field groups */
+  .field-block {
+    padding: 16px 24px;
     border-bottom: 1px solid #f0f2f5;
-    transition: background 0.15s;
   }
 
-  .question-block:last-of-type { border-bottom: none; }
-  .question-block:hover { background: #fafbfd; }
+  .field-block:last-of-type { border-bottom: none; }
 
-  .question-text {
+  .field-label {
+    display: block;
     font-size: 0.92rem;
     font-weight: 500;
     color: #1a1a2e;
@@ -93,40 +96,80 @@
     margin-bottom: 10px;
   }
 
-  .required-star { color: #e53935; margin-left: 3px; }
+  .required-star { color: #e53935; margin-right: 3px; }
 
-  .choice-label {
-    font-size: 0.72rem;
-    color: #999;
-    margin-bottom: 8px;
-    font-weight: 400;
+  .text-input,
+  .date-input,
+  .tel-input,
+  .email-input,
+  .id-input,
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #dde2ea;
+    border-radius: 8px;
+    font-family: 'Heebo', sans-serif;
+    font-size: 0.92rem;
+    color: #1a1a2e;
+    background: #fafbfd;
+    transition: border-color 0.15s;
+    direction: rtl;
   }
 
-  .radio-group {
+  textarea {
+    min-height: 70px;
+    resize: vertical;
+  }
+
+  .text-input:focus,
+  .date-input:focus,
+  .tel-input:focus,
+  .email-input:focus,
+  .id-input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #0f3460;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(15,52,96,0.08);
+  }
+
+  .text-input.invalid,
+  .date-input.invalid,
+  .tel-input.invalid,
+  .email-input.invalid,
+  .id-input.invalid {
+    border-color: #e53935;
+  }
+
+  /* Radio (Yes/No) */
+  .yn-group {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+    margin-bottom: 8px;
   }
 
-  .radio-option {
+  .yn-option {
+    flex: 1;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 8px;
     cursor: pointer;
-    padding: 8px 12px;
+    padding: 10px 12px;
     border-radius: 8px;
     border: 1.5px solid #e8ecf0;
     transition: all 0.15s;
     user-select: none;
+    background: #fafbfd;
   }
 
-  .radio-option:hover { border-color: #0f3460; background: #f0f4ff; }
+  .yn-option:hover { border-color: #0f3460; background: #f0f4ff; }
 
-  .radio-option input[type="radio"] { display: none; }
+  .yn-option input[type="radio"] { display: none; }
 
-  .radio-custom {
-    width: 20px;
-    height: 20px;
+  .yn-custom {
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     border: 2px solid #ccc;
     display: flex;
@@ -136,32 +179,99 @@
     transition: all 0.15s;
   }
 
-  .radio-option input[type="radio"]:checked + .radio-custom {
+  .yn-option input[type="radio"]:checked + .yn-custom {
     border-color: #0f3460;
     background: #0f3460;
   }
 
-  .radio-option input[type="radio"]:checked + .radio-custom::after {
+  .yn-option input[type="radio"]:checked + .yn-custom::after {
     content: '';
-    width: 8px;
-    height: 8px;
+    width: 7px;
+    height: 7px;
     border-radius: 50%;
     background: white;
   }
 
-  .radio-option:has(input:checked) {
+  .yn-option:has(input:checked) {
     border-color: #0f3460;
     background: #f0f4ff;
   }
 
-  .radio-option span:last-child {
-    font-size: 0.9rem;
+  .yn-option .yn-text {
+    font-size: 0.92rem;
     font-weight: 500;
-    color: #333;
+    color: #1a1a2e;
   }
 
+  /* Conditional details */
+  .yn-details {
+    margin-top: 8px;
+    display: none;
+  }
+
+  .yn-details.show { display: block; }
+
+  /* Multi-choice (level) */
+  .level-group {
+    display: flex;
+    gap: 8px;
+  }
+
+  .level-option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 9px 8px;
+    border-radius: 8px;
+    border: 1.5px solid #e8ecf0;
+    transition: all 0.15s;
+    background: #fafbfd;
+  }
+
+  .level-option:hover { border-color: #0f3460; background: #f0f4ff; }
+  .level-option input[type="radio"] { display: none; }
+
+  .level-option:has(input:checked) {
+    border-color: #0f3460;
+    background: #f0f4ff;
+    color: #0f3460;
+  }
+
+  .level-option .yn-text { font-size: 0.88rem; font-weight: 500; }
+
+  /* Pregnancy risk checkbox */
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 8px 12px;
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #0f3460;
+    cursor: pointer;
+  }
+
+  .checkbox-row label {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #5d4037;
+    cursor: pointer;
+  }
+
+  /* Error */
   .error-msg {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: #e53935;
     margin-top: 6px;
     display: none;
@@ -169,92 +279,29 @@
 
   .error-msg.visible { display: block; }
 
-  .question-block.has-error .radio-option { border-color: #ffcdd2; }
-  .question-block.has-error .question-text { color: #c62828; }
+  .field-block.has-error .field-label { color: #c62828; }
 
-  /* Instructions section */
-  .instructions-block {
-    background: #f8f9fc;
-    padding: 20px 24px;
-    border-bottom: 1px solid #e8ecf0;
-  }
+  /* Section divider */
+  .section-divider { height: 8px; background: #f0f2f5; }
 
-  .instructions-block ol {
-    padding-right: 20px;
-    font-size: 0.85rem;
-    color: #444;
-    line-height: 1.7;
-  }
-
-  .instructions-block ol li { margin-bottom: 10px; }
-
-  /* Declaration section */
+  /* Declaration */
   .declaration-text {
     background: #fff8e1;
     border: 1px solid #ffe082;
     border-radius: 8px;
     padding: 16px;
-    font-size: 0.82rem;
-    line-height: 1.7;
+    font-size: 0.85rem;
+    line-height: 1.75;
     color: #5d4037;
-    margin: 0 24px 20px;
+    margin: 16px 24px 20px;
   }
-
-  .notice-text {
-    background: #e8f5e9;
-    border-right: 3px solid #4caf50;
-    padding: 12px 16px;
-    font-size: 0.75rem;
-    line-height: 1.65;
-    color: #2e7d32;
-    margin: 0 24px 20px;
-    border-radius: 0 6px 6px 0;
-  }
-
-  /* Fields */
-  .field-group {
-    padding: 0 24px 20px;
-  }
-
-  .field-group label {
-    display: block;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: #444;
-    margin-bottom: 6px;
-  }
-
-  .field-group input[type="text"],
-  .field-group input[type="date"] {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1.5px solid #dde2ea;
-    border-radius: 8px;
-    font-family: 'Heebo', sans-serif;
-    font-size: 0.9rem;
-    color: #1a1a2e;
-    background: #fafbfd;
-    transition: border-color 0.15s;
-    direction: rtl;
-  }
-
-  .field-group input:focus {
-    outline: none;
-    border-color: #0f3460;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(15,52,96,0.08);
-  }
-
-  .field-group input.invalid { border-color: #e53935; }
 
   /* Signature */
-  .signature-section {
-    padding: 0 24px 24px;
-  }
+  .signature-section { padding: 0 24px 24px; }
 
   .signature-section label {
     display: block;
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     font-weight: 600;
     color: #444;
     margin-bottom: 8px;
@@ -287,14 +334,11 @@
     border-top: 1px solid #dde2ea;
   }
 
-  .sig-hint {
-    font-size: 0.72rem;
-    color: #999;
-  }
+  .sig-hint { font-size: 0.74rem; color: #999; }
 
   .btn-clear {
     font-family: 'Heebo', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: #666;
     background: white;
     border: 1px solid #ccc;
@@ -307,28 +351,29 @@
   .btn-clear:hover { border-color: #e53935; color: #e53935; }
 
   /* Submit */
-  .submit-section {
-    padding: 0 24px 28px;
-  }
+  .submit-section { padding: 0 24px 28px; }
 
   .btn-submit {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     background: linear-gradient(135deg, #0f3460, #1a5276);
     color: white;
     border: none;
     border-radius: 10px;
     font-family: 'Heebo', sans-serif;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     letter-spacing: 0.3px;
-    position: relative;
-    overflow: hidden;
   }
 
-  .btn-submit:hover { background: linear-gradient(135deg, #1a5276, #0f3460); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(15,52,96,0.3); }
+  .btn-submit:hover {
+    background: linear-gradient(135deg, #1a5276, #0f3460);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(15,52,96,0.3);
+  }
+
   .btn-submit:active { transform: translateY(0); }
   .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
@@ -366,10 +411,11 @@
     justify-content: center;
     margin: 0 auto 20px;
     font-size: 1.8rem;
+    color: white;
   }
 
   .success-card h3 { font-size: 1.2rem; font-weight: 700; color: #1a1a2e; margin-bottom: 10px; }
-  .success-card p { font-size: 0.85rem; color: #666; line-height: 1.6; margin-bottom: 20px; }
+  .success-card p { font-size: 0.88rem; color: #666; line-height: 1.6; margin-bottom: 20px; }
 
   .btn-ok {
     background: #0f3460;
@@ -378,7 +424,7 @@
     border-radius: 8px;
     padding: 12px 32px;
     font-family: 'Heebo', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 600;
     cursor: pointer;
   }
@@ -398,14 +444,13 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Divider */
-  .section-divider { height: 8px; background: #f0f2f5; }
-
-  @media (max-width: 400px) {
-    .form-header { padding: 24px 16px 18px; }
+  @media (max-width: 420px) {
+    .form-header { padding: 28px 16px 20px; }
     .form-header h1 { font-size: 1.3rem; }
-    .question-block, .field-group, .signature-section, .submit-section { padding-right: 16px; padding-left: 16px; }
-    .declaration-text, .notice-text { margin-right: 16px; margin-left: 16px; }
+    .field-block, .signature-section, .submit-section { padding-right: 16px; padding-left: 16px; }
+    .declaration-text { margin-right: 16px; margin-left: 16px; }
+    .yn-group { flex-direction: column; }
+    .level-group { flex-direction: column; }
   }
 </style>
 </head>
@@ -413,213 +458,285 @@
 
 <div class="container">
   <div class="form-header">
-    <h1>טופס הצהרת בריאות</h1>
-    <p>יש למלא את כל השדות המסומנים בכוכבית</p>
+    <h1>✨שאלון בריאות והרגלים לפני התחלת אימונים
+</h1>
+    <div class="subtitle">לפני התחלת אימונים — חשוב לי להכיר אותך קצת יותר לעומק 💛</div>
+    <div class="subtitle">אשמח שתמלא/י את השאלון בכנות.</div>
+    <div class="privacy">המידע נשאר חסוי ומשמש להתאמה אישית של האימונים.</div>
   </div>
 
   <form id="healthForm" class="form-body" novalidate>
 
-    <!-- חלק א׳ -->
+    <!-- ── פרטים אישיים ── -->
     <div class="section-header">
-      <h2>חלק א׳ — שאלון רפואי</h2>
-      <p>אנא קרא את השאלות להלן בצורה יסודית וענה על כל שאלה בכנות באמצעות סימון במשבצת המתאימה. האמור בשאלון מנוסח בלשון זכר מטעמי נוחות, אך הוא מיועד גם לנקבה.</p>
+      <h2><span class="section-icon">📋</span> פרטים אישיים</h2>
     </div>
 
-    <!-- Q1 -->
-    <div class="question-block" data-q="1">
-      <div class="question-text">האם הרופא שלך אמר לך שאתה סובל ממחלת לב?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option">
-          <input type="radio" name="q1" value="לא">
-          <span class="radio-custom"></span>
-          <span>לא</span>
-        </label>
-        <label class="radio-option">
-          <input type="radio" name="q1" value="כן">
-          <span class="radio-custom"></span>
-          <span>כן</span>
-        </label>
+    <div class="field-block">
+      <label class="field-label" for="fullName">שם מלא <span class="required-star">*</span></label>
+      <input type="text" id="fullName" class="text-input" autocomplete="name" placeholder="שם פרטי ושם משפחה">
+      <div class="error-msg">יש להזין שם מלא</div>
+    </div>
+
+    <div class="field-block">
+      <label class="field-label" for="idNumber">תעודת זהות <span class="required-star">*</span></label>
+      <input type="text" id="idNumber" class="id-input" inputmode="numeric" pattern="\d{9}" maxlength="9" placeholder="9 ספרות">
+      <div class="error-msg">יש להזין תעודת זהות תקינה (9 ספרות)</div>
+    </div>
+
+    <div class="field-block">
+      <label class="field-label" for="birthDate">תאריך לידה <span class="required-star">*</span></label>
+      <input type="date" id="birthDate" class="date-input">
+      <div class="error-msg">יש לבחור תאריך לידה</div>
+    </div>
+
+    <div class="field-block">
+      <label class="field-label" for="phone">טלפון <span class="required-star">*</span></label>
+      <input type="tel" id="phone" class="tel-input" inputmode="tel" placeholder="05X-XXXXXXX" autocomplete="tel">
+      <div class="error-msg">יש להזין מספר טלפון תקין</div>
+    </div>
+
+    <div class="field-block">
+      <label class="field-label" for="email">אימייל <span class="required-star">*</span></label>
+      <input type="email" id="email" class="email-input" placeholder="name@example.com" autocomplete="email">
+      <div class="error-msg">יש להזין כתובת אימייל תקינה</div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── מצב בריאותי כללי ── -->
+    <div class="section-header">
+      <h2><span class="section-icon">🩺</span> מצב בריאותי כללי</h2>
+    </div>
+
+    <div class="field-block" data-q="chronic">
+      <label class="field-label">האם יש לך מחלה כרונית? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="chronic" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="chronic" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="chronic">
+        <input type="text" class="text-input" id="chronicDetails" placeholder="כמה זמן / סוג">
       </div>
       <div class="error-msg">יש לבחור תשובה</div>
     </div>
 
-    <!-- Q2 -->
-    <div class="question-block" data-q="2">
-      <div class="question-text">האם אתה חש כאבים בחזה בזמן מנוחה?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q2" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q2" value="כן"><span class="radio-custom"></span><span>כן</span></label>
+    <div class="field-block" data-q="surgery">
+      <label class="field-label">האם עברת ניתוחים בעבר? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="surgery" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="surgery" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="surgery">
+        <input type="text" class="text-input" id="surgeryDetails" placeholder="מתי / סוג">
       </div>
       <div class="error-msg">יש לבחור תשובה</div>
     </div>
 
-    <!-- Q3 -->
-    <div class="question-block" data-q="3">
-      <div class="question-text">האם אתה חש כאבים בחזה במהלך פעילויות שיגרה ביום-יום?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q3" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q3" value="כן"><span class="radio-custom"></span><span>כן</span></label>
+    <div class="field-block" data-q="heart">
+      <label class="field-label">האם אובחנו אצלך בעיות לב / לחץ דם / כלי דם? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="heart" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="heart" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="heart">
+        <input type="text" class="text-input" id="heartDetails" placeholder="כמה זמן / סוג">
       </div>
       <div class="error-msg">יש לבחור תשובה</div>
     </div>
 
-    <!-- Q4 -->
-    <div class="question-block" data-q="4">
-      <div class="question-text">האם אתה חש כאבים בחזה בזמן שאתה מבצע פעילות גופנית?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q4" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q4" value="כן"><span class="radio-custom"></span><span>כן</span></label>
+    <div class="field-block" data-q="dizzy">
+      <label class="field-label">האם את/ה חווה סחרחורות, עילפון או קוצר נשימה בזמן מאמץ? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="dizzy" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="dizzy" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
       </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q5 -->
-    <div class="question-block" data-q="5">
-      <div class="question-text">האם במהלך השנה החולפת איבדת שיווי משקל עקב סחרחורת? סמן לא — אם הסחרחורת נבעה ממשימת יתר (כולל במהלך פעילות גופנית נמרצת).<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q5" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q5" value="כן"><span class="radio-custom"></span><span>כן</span></label>
-      </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q6 -->
-    <div class="question-block" data-q="6">
-      <div class="question-text">האם במהלך השנה החולפת איבדת את הכרתך?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q6" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q6" value="כן"><span class="radio-custom"></span><span>כן</span></label>
-      </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q7 -->
-    <div class="question-block" data-q="7">
-      <div class="question-text">האם רופא אבחן שאתה סובל ממחלת האסתמה ולכן בשלושת החודשים האחרונים נזקקת לטיפול תרופתי?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q7" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q7" value="כן"><span class="radio-custom"></span><span>כן</span></label>
-      </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q8 -->
-    <div class="question-block" data-q="8">
-      <div class="question-text">האם רופא אבחן שאתה סובל ממחלת האסתמה ולכן בשלושת החודשים האחרונים סבלת מקוצר נשימה או ציפצופים?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q8" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q8" value="כן"><span class="radio-custom"></span><span>כן</span></label>
-      </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q9 -->
-    <div class="question-block" data-q="9">
-      <div class="question-text">האם אחד מבני משפחתך מדרגת קרבה ראשונה נפטר ממחלת לב?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q9" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q9" value="כן"><span class="radio-custom"></span><span>כן</span></label>
-      </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q10 -->
-    <div class="question-block" data-q="10">
-      <div class="question-text">האם אחד מבני משפחתך מדרגת קרבה ראשונה נפטר ממוות פתאומי בגיל מוקדם? (לפני גיל 55 אם מדובר בגבר, ולפני גיל 65 אם זו אישה)<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q10" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q10" value="כן"><span class="radio-custom"></span><span>כן</span></label>
-      </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q11 -->
-    <div class="question-block" data-q="11">
-      <div class="question-text">האם הרופא שלך אמר לך בחמש השנים האחרונות לבצע פעילות גופנית רק תחת השגחה רפואית?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q11" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q11" value="כן"><span class="radio-custom"></span><span>כן</span></label>
-      </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q12 -->
-    <div class="question-block" data-q="12">
-      <div class="question-text">האם הינך סובל ממחלה קבועה (כרונית), שאינה נזכרת בשאלות לעיל ועשויה למנוע או להגביל אותך בביצוע פעילות גופנית?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q12" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q12" value="כן"><span class="radio-custom"></span><span>כן</span></label>
-      </div>
-      <div class="error-msg">יש לבחור תשובה</div>
-    </div>
-
-    <!-- Q13 -->
-    <div class="question-block" data-q="13">
-      <div class="question-text">לנשים בהריון: האם ההריון הזה או כל הריון קודם הוגדר הריון בסיכון?<span class="required-star">*</span></div>
-      <div class="choice-label">בחירה אחת</div>
-      <div class="radio-group">
-        <label class="radio-option"><input type="radio" name="q13" value="לא"><span class="radio-custom"></span><span>לא</span></label>
-        <label class="radio-option"><input type="radio" name="q13" value="כן"><span class="radio-custom"></span><span>כן</span></label>
+      <div class="yn-details" data-for="dizzy">
+        <input type="text" class="text-input" id="dizzyDetails" placeholder="מתי קורה / פירוט">
       </div>
       <div class="error-msg">יש לבחור תשובה</div>
     </div>
 
     <div class="section-divider"></div>
 
-    <!-- חלק ב׳ -->
+    <!-- ── שריר-שלד ── -->
     <div class="section-header">
-      <h2>חלק ב׳ — הנחיות</h2>
+      <h2><span class="section-icon">🦴</span> מערכת שריר-שלד</h2>
     </div>
 
-    <div class="instructions-block">
-      <ol>
-        <li>אם סימנת כן באחת מהשאלות בחלק א׳ בטופס זה — לצורך קבלת הכושר עליך להמציא למכון הכושר גם תעודה רפואית לפיה הרופא מאשר את לבריאותך באימון בכושר. מכון הכושר יקבל מתאמן שהמציא תעודה רפואית שלא עברו 3 חודשים ממועד הנפקתה.</li>
-        <li>אם ענית לא לכל השאלות שבחלק א׳ בטופס זה — מלא את ההצהרה שבחלק ג׳ לטופס זה וחתום עליה.</li>
-        <li>בכל מקרה של שינוי במצבך הרפואי, יש להתייעץ עם רופא לגבי המשך פעילות במכון הכושר.</li>
-      </ol>
+    <div class="field-block" data-q="back">
+      <label class="field-label">האם יש כאבים בגב (תחתון / עליון / צוואר)? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="back" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="back" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="back">
+        <input type="text" class="text-input" id="backDetails" placeholder="מיקום + כמה זמן">
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
+    </div>
+
+    <div class="field-block" data-q="disc">
+      <label class="field-label">האם אובחנת עם פריצת דיסק / בלט דיסק או פציעה אחרת? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="disc" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="disc" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="disc">
+        <input type="text" class="text-input" id="discDetails" placeholder="מתי / סוג">
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
+    </div>
+
+    <div class="field-block" data-q="joints">
+      <label class="field-label">האם יש בעיות בברכיים / ירכיים / כתפיים? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="joints" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="joints" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="joints">
+        <input type="text" class="text-input" id="jointsDetails" placeholder="מיקום + כמה זמן">
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
+    </div>
+
+    <div class="field-block" data-q="rom">
+      <label class="field-label">האם קיימת הגבלה בתנועה או כאב בזמן פעילות? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="rom" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="rom" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="rom">
+        <input type="text" class="text-input" id="romDetails" placeholder="פירוט">
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
     </div>
 
     <div class="section-divider"></div>
 
-    <!-- חלק ג׳ -->
+    <!-- ── נוירו / הריון ── -->
     <div class="section-header">
-      <h2>חלק ג׳ — הצהרה</h2>
+      <h2><span class="section-icon">🧠</span> מצב נוירולוגי ואחר</h2>
+    </div>
+
+    <div class="field-block" data-q="neuro">
+      <label class="field-label">האם קיימות בעיות בשיווי משקל או במערכת העצבים? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="neuro" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="neuro" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="neuro">
+        <input type="text" class="text-input" id="neuroDetails" placeholder="פירוט / כמה זמן">
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
+    </div>
+
+    <div class="field-block" data-q="pregnancy">
+      <label class="field-label">הריון / לאחר לידה <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="pregnancy" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="pregnancy" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="pregnancy">
+        <input type="text" class="text-input" id="pregnancyDetails" placeholder="שבוע הריון / חודשים לאחר לידה">
+        <label class="checkbox-row">
+          <input type="checkbox" id="pregnancyRisk">
+          <label for="pregnancyRisk">הריון בסיכון</label>
+        </label>
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
+    </div>
+
+    <div class="field-block" data-q="sensitivities">
+      <label class="field-label">האם קיימות רגישויות רפואיות או מצבים מיוחדים שחשוב לי לדעת? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="sensitivities" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="sensitivities" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="sensitivities">
+        <input type="text" class="text-input" id="sensitivitiesDetails" placeholder="פרט / כמה זמן">
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── תרופות ── -->
+    <div class="section-header">
+      <h2><span class="section-icon">💊</span> תרופות והרגלים</h2>
+    </div>
+
+    <div class="field-block" data-q="meds">
+      <label class="field-label">האם את/ה נוטל/ת תרופות באופן קבוע? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="meds" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="meds" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="meds">
+        <input type="text" class="text-input" id="medsDetails" placeholder="איזה / כמה זמן">
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── רקע באימון ── -->
+    <div class="section-header">
+      <h2><span class="section-icon">🧘</span> רקע באימון</h2>
+    </div>
+
+    <div class="field-block" data-q="training">
+      <label class="field-label">האם את/ה מתאמן/ת כיום? <span class="required-star">*</span></label>
+      <div class="yn-group">
+        <label class="yn-option"><input type="radio" name="training" value="לא"><span class="yn-custom"></span><span class="yn-text">לא</span></label>
+        <label class="yn-option"><input type="radio" name="training" value="כן"><span class="yn-custom"></span><span class="yn-text">כן</span></label>
+      </div>
+      <div class="yn-details" data-for="training">
+        <input type="text" class="text-input" id="trainingDuration" placeholder="כמה זמן" style="margin-bottom:8px;">
+        <input type="text" class="text-input" id="trainingType" placeholder="סוג האימונים">
+      </div>
+      <div class="error-msg">יש לבחור תשובה</div>
+    </div>
+
+    <div class="field-block" data-q="level">
+      <label class="field-label">רמת הפעילות הגופנית שלך כיום <span class="required-star">*</span></label>
+      <div class="level-group">
+        <label class="level-option"><input type="radio" name="level" value="נמוכה"><span class="yn-text">נמוכה</span></label>
+        <label class="level-option"><input type="radio" name="level" value="בינונית"><span class="yn-text">בינונית</span></label>
+        <label class="level-option"><input type="radio" name="level" value="גבוהה"><span class="yn-text">גבוהה</span></label>
+      </div>
+      <div class="error-msg">יש לבחור רמה</div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── חשוב לדעת ── -->
+    <div class="section-header">
+      <h2><span class="section-icon">✨</span> משהו שחשוב לי לדעת</h2>
+    </div>
+
+    <div class="field-block">
+      <label class="field-label" for="extraInfo">האם יש משהו נוסף שחשוב לי לדעת לפני שמתחילים?</label>
+      <textarea id="extraInfo" placeholder="✍️ פרט/י כאן..."></textarea>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- ── הצהרה ── -->
+    <div class="section-header">
+      <h2><span class="section-icon">⚠️</span> הצהרה ואישור</h2>
     </div>
 
     <div class="declaration-text">
-      אני, החתום מטה, מצהיר כי קראתי והבנתי את כל השאלון הרפואי שבחלק א׳ לטופס זה ומילאתי אותו בעצמי.<br><br>
-      אני מצהיר כי מסרתי ידיעות מלאות ונכונות אודות מצבי הרפואי בעבר ובהווה לפי השאלות שנשאלתי בשאלון האמור.<br><br>
-      ידוע לי כי לאחר שנתיים מיום חתימתי על הצהרת בריאות זו, אדרש להמציא הצהרת בריאות חדשה.
+      אני מצהיר/ה כי כל הפרטים שמסרתי נכונים ומלאים.<br><br>
+      ידוע לי כי התמדה היא חלק מרכזי מתהליך האימון והתוצאות מתקבלות לאורך זמן כחלק מתהליך רציף ועקבי.<br><br>
+      ידוע לי שעליי לעדכן בכל שינוי במצבי הבריאותי.
     </div>
 
-    <div class="notice-text">
-      התועלת הבריאותית של פעילות גופנית סדירה ברורה; חשוב שיותר אנשים יהיו פעילים כל ימות השבוע; ביצוע פעילות גופנית מאד בטוחה לרוב האנשים; השאלון הזה יבהיר לך באלו מקרים עליך להתייעץ עם רופא ולהביא תעודה רפואית למכון הכושר לפני שתתחיל להתאמן בכושר. חשוב להדגיש, מומלץ לבצע פעילות גופנית לאחר קבלת הדרכה ובאופן מדורג, במיוחד אם אתה מעל גיל 45 ובכוונתך לבצע פעילות בעצימות גבוהה ואינך רגיל לעשות זאת.
-    </div>
-
-    <!-- שם -->
-    <div class="field-group">
-      <label for="fullName">שם מלא <span class="required-star">*</span></label>
-      <input type="text" id="fullName" name="fullName" placeholder="הזן שם מלא" autocomplete="name">
-      <div class="error-msg" id="nameError">יש להזין שם מלא</div>
-    </div>
-
-    <!-- תאריך -->
-    <div class="field-group">
-      <label for="signDate">תאריך <span class="required-star">*</span></label>
-      <input type="date" id="signDate" name="signDate">
-      <div class="error-msg" id="dateError">יש לבחור תאריך</div>
+    <div class="field-block">
+      <label class="field-label" for="signDate">תאריך <span class="required-star">*</span></label>
+      <input type="date" id="signDate" class="date-input">
+      <div class="error-msg">יש לבחור תאריך</div>
     </div>
 
     <!-- חתימה -->
@@ -628,7 +745,7 @@
       <div class="canvas-wrapper" id="canvasWrapper">
         <canvas id="signatureCanvas"></canvas>
         <div class="sig-toolbar">
-          <span class="sig-hint">חתום כאן באמצעות האצבע או העכבר</span>
+          <span class="sig-hint">חתום/י כאן באמצעות האצבע או העכבר</span>
           <button type="button" class="btn-clear" id="clearSig">נקה חתימה</button>
         </div>
       </div>
@@ -638,7 +755,7 @@
     <!-- שליחה -->
     <div class="submit-section">
       <button type="submit" class="btn-submit" id="submitBtn">
-        שלח טופס ושמור PDF
+        שלח/י טופס
       </button>
     </div>
 
@@ -650,12 +767,23 @@
   <div class="success-card">
     <div class="success-icon">✓</div>
     <h3>הטופס נשלח בהצלחה!</h3>
-    <p>הטופס נשלח בהצלחה.</p>
+    <p>תודה רבה 💛 השאלון התקבל ונשמר.</p>
     <button class="btn-ok" id="okBtn">סגור</button>
   </div>
 </div>
 
 <script>
+// ─── Conditional Yes/No details ─────────────────────────────────────────────
+document.querySelectorAll('input[type="radio"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    const name = radio.name;
+    const details = document.querySelector(`.yn-details[data-for="${name}"]`);
+    if (!details) return;
+    if (radio.value === 'כן') details.classList.add('show');
+    else details.classList.remove('show');
+  });
+});
+
 // ─── Signature Canvas ───────────────────────────────────────────────────────
 const canvas = document.getElementById('signatureCanvas');
 const ctx = canvas.getContext('2d');
@@ -707,62 +835,86 @@ document.getElementById('clearSig').addEventListener('click', () => {
 document.getElementById('signDate').value = new Date().toISOString().split('T')[0];
 
 // ─── Validation ──────────────────────────────────────────────────────────────
-const QUESTIONS = 13;
+const YN_QUESTIONS = ['chronic','surgery','heart','dizzy','back','disc','joints','rom','neuro','pregnancy','sensitivities','meds','training'];
+const TEXT_FIELDS = [
+  { id: 'fullName', minLen: 2 },
+  { id: 'phone', regex: /^0\d{1,2}-?\d{7}$/ },
+  { id: 'email', regex: /^[^\s@]+@[^\s@]+\.[^\s@]+$/ }
+];
+
+function setBlockError(block, valid) {
+  const errEl = block.querySelector('.error-msg');
+  if (!valid) { block.classList.add('has-error'); errEl.classList.add('visible'); }
+  else { block.classList.remove('has-error'); errEl.classList.remove('visible'); }
+}
+
+function setInputError(input, valid) {
+  const block = input.closest('.field-block');
+  const errEl = block ? block.querySelector('.error-msg') : null;
+  if (!valid) {
+    input.classList.add('invalid');
+    if (errEl) errEl.classList.add('visible');
+    if (block) block.classList.add('has-error');
+  } else {
+    input.classList.remove('invalid');
+    if (errEl) errEl.classList.remove('visible');
+    if (block) block.classList.remove('has-error');
+  }
+}
 
 function validateForm() {
   let valid = true;
   let firstError = null;
 
-  // radio questions
-  for (let i = 1; i <= QUESTIONS; i++) {
-    const block = document.querySelector(`[data-q="${i}"]`);
-    const answered = document.querySelector(`input[name="q${i}"]:checked`);
-    const errEl = block.querySelector('.error-msg');
-    if (!answered) {
-      block.classList.add('has-error');
-      errEl.classList.add('visible');
-      valid = false;
-      if (!firstError) firstError = block;
-    } else {
-      block.classList.remove('has-error');
-      errEl.classList.remove('visible');
-    }
-  }
-
-  // name
+  // Personal info
   const name = document.getElementById('fullName');
-  const nameErr = document.getElementById('nameError');
-  if (!name.value.trim()) {
-    name.classList.add('invalid');
-    nameErr.classList.add('visible');
-    valid = false;
-    if (!firstError) firstError = name;
-  } else {
-    name.classList.remove('invalid');
-    nameErr.classList.remove('visible');
-  }
+  if (name.value.trim().length < 2) { setInputError(name, false); valid = false; firstError = firstError || name; }
+  else setInputError(name, true);
 
-  // date
+  const id = document.getElementById('idNumber');
+  if (!/^\d{9}$/.test(id.value.trim())) { setInputError(id, false); valid = false; firstError = firstError || id; }
+  else setInputError(id, true);
+
+  const birth = document.getElementById('birthDate');
+  if (!birth.value) { setInputError(birth, false); valid = false; firstError = firstError || birth; }
+  else setInputError(birth, true);
+
+  const phone = document.getElementById('phone');
+  const phoneClean = phone.value.replace(/[\s-]/g,'');
+  if (!/^0\d{8,9}$/.test(phoneClean)) { setInputError(phone, false); valid = false; firstError = firstError || phone; }
+  else setInputError(phone, true);
+
+  const email = document.getElementById('email');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { setInputError(email, false); valid = false; firstError = firstError || email; }
+  else setInputError(email, true);
+
+  // Yes/No questions
+  YN_QUESTIONS.forEach(q => {
+    const block = document.querySelector(`[data-q="${q}"]`);
+    const answered = document.querySelector(`input[name="${q}"]:checked`);
+    if (!answered) { setBlockError(block, false); valid = false; firstError = firstError || block; }
+    else setBlockError(block, true);
+  });
+
+  // Level
+  const levelBlock = document.querySelector('[data-q="level"]');
+  const levelAns = document.querySelector('input[name="level"]:checked');
+  if (!levelAns) { setBlockError(levelBlock, false); valid = false; firstError = firstError || levelBlock; }
+  else setBlockError(levelBlock, true);
+
+  // Date
   const date = document.getElementById('signDate');
-  const dateErr = document.getElementById('dateError');
-  if (!date.value) {
-    date.classList.add('invalid');
-    dateErr.classList.add('visible');
-    valid = false;
-    if (!firstError) firstError = date;
-  } else {
-    date.classList.remove('invalid');
-    dateErr.classList.remove('visible');
-  }
+  if (!date.value) { setInputError(date, false); valid = false; firstError = firstError || date; }
+  else setInputError(date, true);
 
-  // signature
+  // Signature
   const sigErr = document.getElementById('sigError');
   const wrapper = document.getElementById('canvasWrapper');
   if (sigEmpty) {
     wrapper.classList.add('invalid');
     sigErr.classList.add('visible');
     valid = false;
-    if (!firstError) firstError = wrapper;
+    firstError = firstError || wrapper;
   } else {
     wrapper.classList.remove('invalid');
     sigErr.classList.remove('visible');
@@ -773,158 +925,167 @@ function validateForm() {
 }
 
 // ─── Collect answers ─────────────────────────────────────────────────────────
-const QUESTION_TEXTS = [
-  'האם הרופא שלך אמר לך שאתה סובל ממחלת לב?',
-  'האם אתה חש כאבים בחזה בזמן מנוחה?',
-  'האם אתה חש כאבים בחזה במהלך פעילויות שיגרה ביום-יום?',
-  'האם אתה חש כאבים בחזה בזמן שאתה מבצע פעילות גופנית?',
-  'האם במהלך השנה החולפת איבדת שיווי משקל עקב סחרחורת?',
-  'האם במהלך השנה החולפת איבדת את הכרתך?',
-  'האם רופא אבחן אסתמה ולכן בשלושת החודשים האחרונים נזקקת לטיפול תרופתי?',
-  'האם רופא אבחן אסתמה ולכן בשלושת החודשים האחרונים סבלת מקוצר נשימה או ציפצופים?',
-  'האם אחד מבני משפחתך מדרגת קרבה ראשונה נפטר ממחלת לב?',
-  'האם אחד מבני משפחתך נפטר ממוות פתאומי בגיל מוקדם?',
-  'האם הרופא אמר לך לבצע פעילות גופנית רק תחת השגחה רפואית?',
-  'האם הינך סובל ממחלה כרונית המגבילה פעילות גופנית?',
-  'לנשים בהריון: האם ההריון הוגדר הריון בסיכון?'
-];
+const Q_LABELS = {
+  chronic: 'מחלה כרונית',
+  surgery: 'ניתוחים בעבר',
+  heart: 'בעיות לב / לחץ דם / כלי דם',
+  dizzy: 'סחרחורות / עילפון / קוצר נשימה במאמץ',
+  back: 'כאבי גב',
+  disc: 'פריצת/בלט דיסק או פציעה',
+  joints: 'בעיות בברכיים / ירכיים / כתפיים',
+  rom: 'הגבלה בתנועה / כאב בפעילות',
+  neuro: 'בעיות שיווי משקל / מערכת עצבים',
+  pregnancy: 'הריון / לאחר לידה',
+  sensitivities: 'רגישויות רפואיות / מצבים מיוחדים',
+  meds: 'תרופות באופן קבוע',
+  training: 'מתאמן/ת כיום'
+};
+
+const DETAILS_MAP = {
+  chronic: ['chronicDetails'],
+  surgery: ['surgeryDetails'],
+  heart: ['heartDetails'],
+  dizzy: ['dizzyDetails'],
+  back: ['backDetails'],
+  disc: ['discDetails'],
+  joints: ['jointsDetails'],
+  rom: ['romDetails'],
+  neuro: ['neuroDetails'],
+  pregnancy: ['pregnancyDetails'],
+  sensitivities: ['sensitivitiesDetails'],
+  meds: ['medsDetails'],
+  training: ['trainingDuration','trainingType']
+};
 
 function collectAnswers() {
   const answers = {};
-  for (let i = 1; i <= QUESTIONS; i++) {
-    const sel = document.querySelector(`input[name="q${i}"]:checked`);
-    answers[`q${i}`] = sel ? sel.value : '';
-  }
+  YN_QUESTIONS.forEach(q => {
+    const sel = document.querySelector(`input[name="${q}"]:checked`);
+    const ans = sel ? sel.value : '';
+    const detailIds = DETAILS_MAP[q] || [];
+    const details = detailIds.map(id => (document.getElementById(id)?.value || '').trim()).filter(Boolean).join(' | ');
+    answers[q] = { answer: ans, details: ans === 'כן' ? details : '', label: Q_LABELS[q] };
+  });
+  // pregnancy risk extra
+  answers.pregnancy.risk = document.getElementById('pregnancyRisk').checked;
+  // level
+  const levelSel = document.querySelector('input[name="level"]:checked');
+  answers.level = levelSel ? levelSel.value : '';
   return answers;
 }
 
-// ─── Inject Heebo font as base64 for html2canvas (bypasses CORS) ─────────────
+// ─── Inject Heebo font for html2canvas ───────────────────────────────────────
 let fontInjected = false;
 async function injectFontForCanvas() {
   if (fontInjected) return;
   try {
-    // Fetch the Google Fonts CSS to get actual woff2 URLs
     const cssResp = await fetch('https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap');
     const css = await cssResp.text();
-
-    // Extract all woff2 URLs
     const urlMatches = [...css.matchAll(/url\((https:\/\/[^)]+\.woff2)\)/g)];
     let fontFaces = '';
-
     for (const match of urlMatches) {
       const woffUrl = match[1];
       try {
         const fontResp = await fetch(woffUrl);
         const buffer = await fontResp.arrayBuffer();
         const base64 = btoa(String.fromCharCode(...new Uint8Array(buffer)));
-        // Extract font-face block for this URL
         const blockMatch = css.match(new RegExp(`(@font-face\\s*\\{[^}]*${woffUrl.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}[^}]*\\})`, 's'));
-        if (blockMatch) {
-          fontFaces += blockMatch[1].replace(woffUrl, `data:font/woff2;base64,${base64}`) + '\n';
-        }
+        if (blockMatch) fontFaces += blockMatch[1].replace(woffUrl, `data:font/woff2;base64,${base64}`) + '\n';
       } catch(e) {}
     }
-
     if (fontFaces) {
       document.getElementById('heebo-preload').textContent = fontFaces;
       await document.fonts.ready;
       fontInjected = true;
     }
-  } catch(e) {
-    console.warn('Font inject failed, using fallback:', e);
-  }
+  } catch(e) { console.warn('Font inject failed:', e); }
 }
 
-// ─── PDF Generation via html2canvas ──────────────────────────────────────────
-async function generatePDF(name, date, answers, sigDataUrl) {
+// ─── PDF Generation ──────────────────────────────────────────────────────────
+async function generatePDF(personal, answers, extraInfo, sigDataUrl, signDate) {
   const { jsPDF } = window.jspdf;
 
-  // Build a hidden print-ready div with all form data
-  const printDiv = document.createElement('div');
-  printDiv.style.cssText = `
-    position: fixed; top: -9999px; left: -9999px;
-    width: 794px; background: white;
-    font-family: 'Heebo', sans-serif;
-    direction: rtl; color: #1a1a2e;
-    padding: 0; margin: 0;
-  `;
-
-  const qAnswers = QUESTION_TEXTS.map((q, i) => {
-    const ans = answers[`q${i+1}`] || '—';
+  const buildBadge = (ans) => {
     const isYes = ans === 'כן';
-    const badge = `<span style="
-      display:inline-block; padding:2px 12px; border-radius:12px; font-size:13px; font-weight:700;
-      background:${isYes ? '#fdecea' : '#e8f5e9'}; color:${isYes ? '#c62828' : '#2e7d32'};
-      margin-right:8px;">${ans}</span>`;
+    return `<span style="display:inline-block;padding:2px 12px;border-radius:12px;font-size:12px;font-weight:700;background:${isYes ? '#fdecea' : '#e8f5e9'};color:${isYes ? '#c62828' : '#2e7d32'};">${ans || '—'}</span>`;
+  };
+
+  const ynRows = YN_QUESTIONS.map(q => {
+    const a = answers[q];
+    const detailsHtml = a.details ? `<div style="font-size:11px;color:#666;margin-top:4px;">${a.details}</div>` : '';
+    const riskHtml = (q === 'pregnancy' && a.risk) ? `<div style="font-size:11px;color:#c62828;margin-top:4px;font-weight:600;">⚠️ הריון בסיכון</div>` : '';
     return `
-      <div style="padding:12px 20px; border-bottom:1px solid #f0f2f5; display:flex; align-items:flex-start; gap:12px;">
-        <div style="flex:1; font-size:13px; line-height:1.5; text-align:right;">${i+1}. ${q}</div>
-        <div style="flex-shrink:0; padding-top:2px;">${badge}</div>
+      <div style="padding:10px 18px;border-bottom:1px solid #f0ece5;display:flex;align-items:flex-start;gap:12px;">
+        <div style="flex:1;font-size:12px;line-height:1.5;text-align:right;">
+          <div style="font-weight:600;">${a.label}</div>
+          ${detailsHtml}${riskHtml}
+        </div>
+        <div style="flex-shrink:0;padding-top:2px;">${buildBadge(a.answer)}</div>
       </div>`;
   }).join('');
 
+  const printDiv = document.createElement('div');
+  printDiv.style.cssText = `position:fixed;top:-9999px;left:-9999px;width:794px;background:white;font-family:'Heebo',sans-serif;direction:rtl;color:#1a1a2e;`;
+
   printDiv.innerHTML = `
-    <!-- Header -->
-    <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460); color:white; padding:28px 30px 22px; text-align:center;">
-      <div style="font-size:22px; font-weight:700; margin-bottom:4px;">טופס הצהרת בריאות</div>
-      <div style="font-size:13px; opacity:0.75;">Health Declaration Form</div>
+    <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);color:white;padding:28px 30px 22px;text-align:center;">
+      <div style="font-size:22px;font-weight:700;margin-bottom:4px;">שאלון בריאות והרגלים</div>
+      <div style="font-size:12px;opacity:0.85;">Health & Habits Questionnaire</div>
     </div>
 
-    <!-- Personal info -->
-    <div style="padding:16px 24px; display:flex; justify-content:space-between; border-bottom:2px solid #e8ecf0; background:#f8f9fc;">
-      <div style="font-size:14px;"><strong>תאריך:</strong> ${date}</div>
-      <div style="font-size:14px;"><strong>שם:</strong> ${name}</div>
+    <div style="padding:14px 22px;background:#f8f9fc;border-bottom:2px solid #e8ecf0;">
+      <div style="font-size:13px;font-weight:700;color:#0f3460;margin-bottom:8px;">📋 פרטים אישיים</div>
+      <div style="font-size:12px;line-height:1.8;">
+        <div><strong>שם:</strong> ${personal.name}</div>
+        <div><strong>ת.ז.:</strong> ${personal.id}</div>
+        <div><strong>תאריך לידה:</strong> ${personal.birth}</div>
+        <div><strong>טלפון:</strong> ${personal.phone}</div>
+        <div><strong>אימייל:</strong> ${personal.email}</div>
+        <div><strong>רמת פעילות:</strong> ${answers.level}</div>
+      </div>
     </div>
 
-    <!-- Section A -->
-    <div style="background:#f0f4ff; padding:10px 20px; border-top:3px solid #0f3460;">
-      <div style="font-size:14px; font-weight:700; color:#0f3460;">חלק א׳ — שאלון רפואי</div>
+    <div style="background:#f0f4ff;padding:8px 18px;border-top:3px solid #0f3460;">
+      <div style="font-size:13px;font-weight:700;color:#0f3460;">🩺 שאלון בריאות</div>
     </div>
-    ${qAnswers}
+    ${ynRows}
 
-  `; // end page 1
-
-  // Page 2 div
-  const printDiv2 = document.createElement('div');
-  printDiv2.style.cssText = `
-    position: fixed; top: -9999px; left: -9999px;
-    width: 794px; background: white;
-    font-family: 'Heebo', sans-serif;
-    direction: rtl; color: #1a1a2e;
-    padding: 0; margin: 0;
+    ${extraInfo ? `
+      <div style="background:#f0f4ff;padding:8px 18px;border-top:3px solid #0f3460;margin-top:10px;">
+        <div style="font-size:13px;font-weight:700;color:#0f3460;">✨ מידע נוסף</div>
+      </div>
+      <div style="padding:12px 18px;font-size:12px;line-height:1.6;color:#333;">${extraInfo}</div>
+    ` : ''}
   `;
+
+  const printDiv2 = document.createElement('div');
+  printDiv2.style.cssText = `position:fixed;top:-9999px;left:-9999px;width:794px;background:white;font-family:'Heebo',sans-serif;direction:rtl;color:#1a1a2e;`;
   printDiv2.innerHTML = `
-    <!-- Header -->
-    <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460); color:white; padding:20px 30px 16px; text-align:center;">
-      <div style="font-size:18px; font-weight:700;">טופס הצהרת בריאות — המשך</div>
+    <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);color:white;padding:20px 30px 16px;text-align:center;">
+      <div style="font-size:18px;font-weight:700;">הצהרה וחתימה</div>
     </div>
 
-    <!-- Personal info -->
-    <div style="padding:12px 24px; display:flex; justify-content:space-between; border-bottom:2px solid #e8ecf0; background:#f8f9fc;">
-      <div style="font-size:13px;"><strong>תאריך:</strong> ${date}</div>
-      <div style="font-size:13px;"><strong>שם:</strong> ${name}</div>
+    <div style="padding:14px 22px;background:#f8f9fc;border-bottom:2px solid #e8ecf0;font-size:12px;">
+      <strong>שם:</strong> ${personal.name} &nbsp;&nbsp; <strong>ת.ז.:</strong> ${personal.id}
     </div>
 
-    <!-- Section C -->
-    <div style="background:#f0f4ff; padding:10px 20px; border-top:3px solid #0f3460; margin-top:8px;">
-      <div style="font-size:14px; font-weight:700; color:#0f3460;">חלק ג׳ — הצהרה</div>
-    </div>
-    <div style="padding:16px 20px; background:#fff8e1; margin:12px 20px; border-radius:8px; font-size:12px; line-height:1.7; color:#5d4037; border:1px solid #ffe082;">
-      אני, החתום מטה, מצהיר כי קראתי והבנתי את כל השאלון הרפואי שבחלק א׳ לטופס זה ומילאתי אותו בעצמי.<br>
-      אני מצהיר כי מסרתי ידיעות מלאות ונכונות אודות מצבי הרפואי בעבר ובהווה לפי השאלות שנשאלתי בשאלון האמור.<br>
-      ידוע לי כי לאחר שנתיים מיום חתימתי על הצהרת בריאות זו, אדרש להמציא הצהרת בריאות חדשה.
-    </div>
-
-    <!-- Signature -->
-    <div style="padding:20px 20px 12px;">
-      <div style="font-size:13px; font-weight:600; margin-bottom:8px;">חתימה:</div>
-      <img src="${sigDataUrl}" style="height:80px; width:220px; object-fit:contain; border:1px solid #ddd; border-radius:6px; background:#fafbfd; display:block;" />
-      <div style="font-size:11px; color:#999; margin-top:6px; border-top:1px solid #ccc; padding-top:4px; width:220px;">${name} | ${date}</div>
+    <div style="padding:18px 22px 8px;">
+      <div style="font-size:13px;font-weight:700;color:#0f3460;margin-bottom:10px;">⚠️ הצהרה ואישור</div>
+      <div style="background:#f8f9fc;border:1px solid #e8ecf0;border-radius:8px;padding:14px;font-size:12px;line-height:1.8;color:#5d4037;">
+        אני מצהיר/ה כי כל הפרטים שמסרתי נכונים ומלאים.<br>
+        ידוע לי כי התמדה היא חלק מרכזי מתהליך האימון והתוצאות מתקבלות לאורך זמן כחלק מתהליך רציף ועקבי.<br>
+        ידוע לי שעליי לעדכן בכל שינוי במצבי הבריאותי.
+      </div>
     </div>
 
-    <!-- Footer -->
-    <div style="background:#0f3460; color:white; text-align:center; padding:10px; font-size:11px; margin-top:24px;">
-      טופס הצהרת בריאות | ${new Date().toLocaleDateString('he-IL')}
+    <div style="padding:16px 22px;">
+      <div style="font-size:12px;font-weight:600;margin-bottom:8px;">חתימה:</div>
+      <img src="${sigDataUrl}" style="height:80px;width:240px;object-fit:contain;border:1px solid #ddd;border-radius:6px;background:#fafbfd;display:block;" />
+      <div style="font-size:11px;color:#666;margin-top:6px;border-top:1px solid #ccc;padding-top:4px;width:240px;">${personal.name} | ${signDate}</div>
+    </div>
+
+    <div style="background:#0f3460;color:white;text-align:center;padding:10px;font-size:11px;margin-top:24px;">
+      שאלון בריאות והרגלים | ${new Date().toLocaleDateString('he-IL')}
     </div>
   `;
 
@@ -935,25 +1096,13 @@ async function generatePDF(name, date, answers, sigDataUrl) {
     await injectFontForCanvas();
     await document.fonts.ready;
 
-    const captureOpts = {
-      scale: 2,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: '#ffffff',
-      width: 794,
-      windowWidth: 794
-    };
-
-    // Page 1 — questions
-    const canvas1 = await html2canvas(printDiv, captureOpts);
-    // Page 2 — declaration + signature
-    const canvas2 = await html2canvas(printDiv2, captureOpts);
+    const opts = { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#ffffff', width: 794, windowWidth: 794 };
+    const canvas1 = await html2canvas(printDiv, opts);
+    const canvas2 = await html2canvas(printDiv2, opts);
 
     const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-    const pageW = 210;
-    const pageH = 297;
+    const pageW = 210, pageH = 297;
 
-    // Helper: add canvas as full A4 page (scales to fit)
     function addCanvasPage(canv, isFirst) {
       if (!isFirst) doc.addPage();
       const imgData = canv.toDataURL('image/jpeg', 0.92);
@@ -961,9 +1110,7 @@ async function generatePDF(name, date, answers, sigDataUrl) {
       if (imgH <= pageH) {
         doc.addImage(imgData, 'JPEG', 0, 0, pageW, imgH);
       } else {
-        // tall page — split across multiple PDF pages
-        let posY = 0;
-        let remaining = imgH;
+        let posY = 0, remaining = imgH;
         while (remaining > 0) {
           if (posY > 0) doc.addPage();
           doc.addImage(imgData, 'JPEG', 0, -posY, pageW, imgH);
@@ -975,7 +1122,6 @@ async function generatePDF(name, date, answers, sigDataUrl) {
 
     addCanvasPage(canvas1, true);
     addCanvasPage(canvas2, false);
-
     return doc;
   } finally {
     document.body.removeChild(printDiv);
@@ -983,7 +1129,7 @@ async function generatePDF(name, date, answers, sigDataUrl) {
   }
 }
 
-// ─── Submit ───────────────────────────────────────────────────────────────────
+// ─── Submit ──────────────────────────────────────────────────────────────────
 document.getElementById('healthForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   if (!validateForm()) return;
@@ -992,23 +1138,27 @@ document.getElementById('healthForm').addEventListener('submit', async function(
   btn.disabled = true;
   btn.innerHTML = 'שולח... <span class="spinner"></span>';
 
-  const name = document.getElementById('fullName').value.trim();
-  const date = document.getElementById('signDate').value;
+  const personal = {
+    name: document.getElementById('fullName').value.trim(),
+    id: document.getElementById('idNumber').value.trim(),
+    birth: document.getElementById('birthDate').value,
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim()
+  };
+  const signDate = document.getElementById('signDate').value;
   const answers = collectAnswers();
+  const extraInfo = document.getElementById('extraInfo').value.trim();
   const sigDataUrl = canvas.toDataURL('image/png');
 
   try {
-    // Build PDF
-    const doc = await generatePDF(name, date, answers, sigDataUrl);
-
-    // Get PDF as base64
+    const doc = await generatePDF(personal, answers, extraInfo, sigDataUrl, signDate);
     const pdfBase64 = doc.output('datauristring').split(',')[1];
 
-    // POST to n8n
     const payload = {
-      name,
-      date,
+      ...personal,
+      signDate,
       answers,
+      extraInfo,
       signature: sigDataUrl,
       pdf: pdfBase64,
       timestamp: new Date().toISOString()
@@ -1025,13 +1175,12 @@ document.getElementById('healthForm').addEventListener('submit', async function(
     }
 
     document.getElementById('successOverlay').classList.add('show');
-
   } catch (err) {
     console.error(err);
-    alert('אירעה שגיאה. אנא נסה שוב.');
+    alert('אירעה שגיאה. אנא נסה/י שוב.');
   } finally {
     btn.disabled = false;
-    btn.innerHTML = 'שלח טופס ושמור PDF';
+    btn.innerHTML = 'שלח/י טופס';
   }
 });
 
