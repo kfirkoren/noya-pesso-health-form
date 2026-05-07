@@ -23,11 +23,41 @@
 
   /* Header */
   .form-header {
+    position: relative;
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: white;
     border-radius: 16px 16px 0 0;
-    padding: 36px 24px 28px;
+    padding: 78px 24px 28px;
     text-align: center;
+  }
+
+  .form-header .logo-wrap {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    text-align: center;
+    line-height: 1;
+    font-family: 'Heebo', Arial, sans-serif;
+    color: #0f0f0f;
+  }
+
+  .form-header .logo-name {
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  .form-header .logo-tag {
+    font-size: 0.42rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    margin-top: 3px;
+    color: #1a1a1a;
   }
 
   .form-header h1 {
@@ -445,8 +475,11 @@
   @keyframes spin { to { transform: rotate(360deg); } }
 
   @media (max-width: 420px) {
-    .form-header { padding: 28px 16px 20px; }
+    .form-header { padding: 64px 16px 22px; }
     .form-header h1 { font-size: 1.3rem; }
+    .form-header .logo-wrap { top: 8px; left: 50%; transform: translateX(-50%); padding: 5px 8px; }
+    .form-header .logo-name { font-size: 0.68rem; }
+    .form-header .logo-tag { font-size: 0.38rem; }
     .field-block, .signature-section, .submit-section { padding-right: 16px; padding-left: 16px; }
     .declaration-text { margin-right: 16px; margin-left: 16px; }
     .yn-group { flex-direction: column; }
@@ -458,10 +491,15 @@
 
 <div class="container">
   <div class="form-header">
-    <h1>✨שאלון בריאות והרגלים לפני התחלת אימונים
+    <div class="logo-wrap" dir="ltr" aria-label="NOYA PESSO">
+      <div class="logo-name">NOYA PESSO</div>
+    </div>
+    <h1>✨שאלון בריאות והרגלים לפני תחילת אימונים
 </h1>
-    <div class="subtitle">לפני התחלת אימונים — חשוב לי להכיר אותך קצת יותר לעומק 💛</div>
-    <div class="subtitle">אשמח שתמלא/י את השאלון בכנות.</div>
+<div class="subtitle" dir="rtl">
+<div class="subtitle" dir="rtl">
+  חשוב לי להכיר אותך יותר לעומק 💛
+</div></div>    <div class="subtitle">אשמח שתמלא/י את השאלון בכנות.</div>
     <div class="privacy">המידע נשאר חסוי ומשמש להתאמה אישית של האימונים.</div>
   </div>
 
