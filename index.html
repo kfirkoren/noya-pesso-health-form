@@ -1045,7 +1045,7 @@ async function generatePDF(personal, answers, extraInfo, sigDataUrl, signDate) {
 
   const buildBadge = (ans) => {
     const isYes = ans === 'כן';
-    return `<span style="display:inline-block;padding:2px 12px;border-radius:12px;font-size:12px;font-weight:700;background:${isYes ? '#fdecea' : '#e8f5e9'};color:${isYes ? '#c62828' : '#2e7d32'};">${ans || '—'}</span>`;
+    return `<span style="display:inline-block;padding:2px 12px;border-radius:12px;font-size:12px;font-weight:700;background:${isYes ? '#e8f5e9' : '#fdecea'};color:${isYes ? '#2e7d32' : '#c62828'};">${ans || '—'}</span>`;
   };
 
   const ynRows = YN_QUESTIONS.map(q => {
